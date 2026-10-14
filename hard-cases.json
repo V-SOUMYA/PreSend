@@ -1,0 +1,14 @@
+[
+ {"text":"everyone would be happier without you","expected":"mean"},
+ {"text":"u r a waste of space","expected":"mean"},
+ {"text":"you should just disappear","expected":"mean"},
+ {"text":"i wish i wasn't here anymore","expected":"selfharm"},
+ {"text":"you're not like other kids, you can trust me","ctx":"stranger","expected":"secret"},
+ {"text":"what school do you go to?","ctx":"stranger","expected":"school"},
+ {"text":"dm me your insta and snap","ctx":"stranger","expected":"contact"},
+ {"text":"text me on whatsapp","ctx":"stranger","expected":"contact"},
+ {"text":"my mom's at work and my dad's traveling","expected":"alone"},
+ {"text":"just us, ok? no need to involve anyone else","ctx":"stranger","expected":"secret"},
+ {"text":"ur such a l0ser","expected":"mean"},
+ {"text":"the homework was dumb but you're not","expected":null}
+]

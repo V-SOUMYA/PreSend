@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pause Before You Send</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%232a9d8f'/%3E%3Crect x='10' y='8' width='4' height='16' rx='2' fill='white'/%3E%3Crect x='18' y='8' width='4' height='16' rx='2' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="wrap">
+  <section class="app" id="app" data-ctx="friend">
+    <header class="top">
+      <div class="avatar" id="av" aria-hidden="true">🌿</div>
+      <div class="who"><strong id="name">Sam</strong><span id="status">Online</span></div>
+      <span class="tag" id="tag" hidden>met online</span>
+    </header>
+
+    <div class="seg" id="ctx" role="radiogroup" aria-label="Chatting with">
+      <button type="button" role="radio" aria-checked="true" data-v="friend">Friend I know</button>
+      <button type="button" role="radio" aria-checked="false" data-v="stranger">Met online</button>
+    </div>
+
+    <p class="privacy">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+      Runs on your device · Nothing saved · Nobody is told
+    </p>
+
+    <div id="chat" aria-live="polite"></div>
+
+    <div id="nudge" role="alert" data-lvl="1" hidden>
+      <div class="nhead">
+        <span class="nicon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4.5" height="16" rx="2"/><rect x="13.5" y="4" width="4.5" height="16" rx="2"/></svg></span>
+        <h2 id="nt"></h2>
+      </div>
+      <p id="nm"></p>
+      <p class="tip"><span class="tiplabel">Tip</span> <span id="ntip"></span></p>
+      <p class="adult" id="adult" hidden>💬 Talk to a trusted adult.</p>
+      <div class="actions">
+        <button type="button" class="primary" id="reword">Let me reword it</button>
+        <button type="button" class="quiet" id="anyway">Send anyway</button>
+      </div>
+      <p class="fine">Only you see this. Nobody is told.</p>
+    </div>
+
+    <div class="composer">
+      <input id="msg" placeholder="Type a message…" autocomplete="off" maxlength="300" aria-label="Message">
+      <button type="button" class="icon-btn" id="photo" aria-label="Send a photo" title="Send a photo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+      </button>
+      <button type="button" class="send" id="send" aria-label="Send">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+
+    <div class="chips" aria-label="Try an example">
+      <span>Try</span>
+      <button type="button" data-t="you're such a loser, nobody likes you">mean message</button>
+      <button type="button" data-t="i live at 42 Maple Street">home address</button>
+      <button type="button" data-t="my number is 555-123-4567">phone number</button>
+      <button type="button" data-t="don't tell your parents, ok?">secret</button>
+      <button type="button" data-t="my parents are out, wanna meet up?">meet up</button>
+    </div>
+
+    <footer class="stats">
+      <span>⏸ Nudges <b id="s1">0</b></span>
+      <span>✏️ Reworded <b id="s2">0</b></span>
+      <span>➤ Sent anyway <b id="s3">0</b></span>
+    </footer>
+  </section>
+
+  <details>
+    <summary>How it works and its limits</summary>
+    <p>Everything runs in your browser. Messages are checked on this device, then forgotten. Nothing is saved, sent to a server, or reported to a parent.</p>
+    <p>It can miss things and can flag harmless messages. You can always choose "Send anyway." It helps your own judgment and doesn't replace talking to a trusted adult.</p>
+    <p>If something online feels scary or wrong, tell a parent, teacher, or another adult you trust.</p>
+  </details>
+</main>
+<script src="detector.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
