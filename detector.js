@@ -100,5 +100,13 @@
       tip: 'Talk to a trusted adult before sharing pictures with new online contacts.' };
   }
 
-  return { analyze, analyzePhoto, RULES };
+  // Replace private details with a placeholder so the child can still send the rest.
+  function redact(text) {
+    return String(text)
+      .replace(/[\w.+-]+@[\w-]+\.[a-z]{2,}/gi, '[email hidden]')
+      .replace(/\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/g, '[number hidden]')
+      .replace(/\b\d{1,5}\s+[a-z0-9' ]{2,25}\s(street|st|avenue|ave|road|rd|drive|dr|lane|ln|blvd|boulevard|court|ct)\b/gi, '[address hidden]');
+  }
+
+  return { analyze, analyzePhoto, redact, RULES };
 });

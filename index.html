@@ -5,12 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Pause Before You Send</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%232a9d8f'/%3E%3Crect x='10' y='8' width='4' height='16' rx='2' fill='white'/%3E%3Crect x='18' y='8' width='4' height='16' rx='2' fill='white'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="src/style.css">
 </head>
 <body>
 <div class="bg" id="bg" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i></div>
 <main class="wrap">
   <section class="app" id="app" data-ctx="friend">
+    <div class="toast" id="toast" role="status" hidden><span id="tpausey"></span><span id="ttext"></span></div>
     <header class="top">
       <div class="avatar" id="av" aria-hidden="true">🌿</div>
       <div class="who"><strong id="name">Sam</strong><span id="status">Online</span></div>
@@ -31,12 +32,14 @@
 
     <div id="nudge" role="alert" data-lvl="1" hidden>
       <div class="nhead">
-        <span class="nicon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4.5" height="16" rx="2"/><rect x="13.5" y="4" width="4.5" height="16" rx="2"/></svg></span>
+        <span class="nicon" id="pausey" aria-hidden="true"></span>
         <h2 id="nt"></h2>
       </div>
       <p id="nm"></p>
       <p class="tip"><span class="tiplabel">Tip</span> <span id="ntip"></span></p>
       <p class="adult" id="adult" hidden>💬 Talk to a trusted adult.</p>
+      <div class="helpers" id="helpers"></div>
+      <div class="grownup" id="grownup" hidden><p>Tap a sentence to copy it, then show it to a grown-up you trust:</p><div id="gulist"></div></div>
       <div class="actions">
         <button type="button" class="primary" id="reword">Let me reword it</button>
         <button type="button" class="quiet" id="anyway">Send anyway</button>
@@ -44,15 +47,15 @@
       <p class="fine">Only you see this. Nobody is told.</p>
     </div>
 
-    <div class="composer">
-      <input id="msg" placeholder="Type a message…" autocomplete="off" maxlength="300" aria-label="Message">
+    <form class="composer" id="composer" autocomplete="off">
+      <input id="msg" placeholder="Type a message…" autocomplete="off" enterkeyhint="send" maxlength="300" aria-label="Message">
       <button type="button" class="icon-btn" id="photo" aria-label="Send a photo" title="Send a photo">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
       </button>
-      <button type="button" class="send" id="send" aria-label="Send">
+      <button type="submit" class="send" id="send" aria-label="Send">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </button>
-    </div>
+    </form>
 
     <div class="chips" aria-label="Try an example">
       <span>Try</span>
@@ -62,6 +65,9 @@
       <button type="button" data-t="don't tell your parents, ok?">secret</button>
       <button type="button" data-t="my parents are out, wanna meet up?">meet up</button>
     </div>
+
+    <div class="shelf-head"><span>🏆 Badges</span><span id="bcount">0/6</span></div>
+    <div class="shelf" id="shelf"></div>
 
     <footer class="stats">
       <span>⏸ Nudges <b id="s1">0</b></span>
@@ -77,7 +83,7 @@
     <p>If something online feels scary or wrong, tell a parent, teacher, or another adult you trust.</p>
   </details>
 </main>
-<script src="detector.js"></script>
-<script src="app.js"></script>
+<script src="src/detector.js"></script>
+<script src="src/app.js"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
   "description": "On-device nudges that help kids pause before sending mean or risky messages. Never reports to parents.",
   "scripts": {
     "start": "python3 -m http.server 8000",
-    "test": "node tests/evaluate.js",
+    "test": "node tests/evaluate.js && node tests/redact.test.js",
     "test:hard": "node tests/evaluate.js tests/hard-cases.json"
   },
   "license": "MIT"
