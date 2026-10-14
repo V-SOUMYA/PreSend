@@ -86,3 +86,37 @@ summary{cursor:pointer;font-weight:600;color:var(--ink)}
 @keyframes wobble{0%,100%{transform:rotate(0)}25%{transform:rotate(-12deg)}75%{transform:rotate(12deg)}}
 @media (max-width:480px){.wrap{padding:8px}.app{border-radius:22px;height:calc(100dvh - 16px)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* ===== Light pastel animated background + floating objects ===== */
+:root{
+  --g1:#fff1e6;--g2:#e6f6f2;--g3:#ecefff;--g4:#ffeef3;
+  --p1:#ffc9d6;--p2:#bfe6f2;--p3:#cdeccd;--p4:#ffe8a3;--p5:#dccfff;
+  --card:rgba(255,254,251,.9);
+}
+@media (prefers-color-scheme:dark){:root{
+  --g1:#141c26;--g2:#13232a;--g3:#1a1c2e;--g4:#231b27;
+  --p1:#6b4455;--p2:#3d6272;--p3:#46664c;--p4:#76673a;--p5:#58497e;
+  --card:rgba(24,34,42,.92)}}
+body{background:linear-gradient(125deg,var(--g1),var(--g2),var(--g3),var(--g4));background-size:300% 300%;animation:bgshift 30s ease-in-out infinite;overflow-x:hidden}
+.wrap{position:relative;z-index:1}
+.app{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.bg{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;animation:drift 22s ease-in-out infinite alternate}
+.b1{width:340px;height:340px;background:var(--p2);left:-90px;top:8%}
+.b2{width:300px;height:300px;background:var(--p1);right:-70px;top:38%;animation-duration:27s}
+.b3{width:380px;height:380px;background:var(--p4);left:30%;bottom:-160px;animation-duration:31s}
+.fl{position:absolute;bottom:-90px;left:var(--x);width:var(--s);height:var(--s);color:var(--c);opacity:0;
+  animation:float var(--d) linear var(--dl) infinite;will-change:transform}
+.fl svg{width:100%;height:100%;display:block}
+@keyframes float{
+  0%{transform:translate(0,0) rotate(0);opacity:0}
+  8%{opacity:.7}
+  25%{transform:translate(var(--sw),-30vh) rotate(60deg)}
+  50%{transform:translate(0,-62vh) rotate(180deg)}
+  75%{transform:translate(calc(var(--sw) * -1),-95vh) rotate(270deg)}
+  92%{opacity:.7}
+  100%{transform:translate(0,-130vh) rotate(360deg);opacity:0}}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(60px,-40px) scale(1.15)}}
+@keyframes bgshift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@media (max-width:480px){.fl{opacity:0}.blob{opacity:.4}}
+@media (prefers-reduced-motion:reduce){.fl{display:none}.blob{animation:none!important}body{animation:none!important}}
