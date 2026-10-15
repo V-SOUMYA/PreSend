@@ -7,12 +7,7 @@
   --font:ui-rounded,"SF Pro Rounded","Nunito","Segoe UI",system-ui,-apple-system,sans-serif;
   color-scheme:light;
 }
-@media (prefers-color-scheme:dark){:root{
-  --bg:#10171c;--bg2:#12201f;--card:#18222a;--ink:#e9eef1;--mute:#93a1ab;--line:#26343d;
-  --accent:#4cc3b3;--accent-ink:#08201c;--accent-soft:#1b3834;
-  --me:#3fb5a6;--me-ink:#06201c;--them:#243039;
-  --n1-bg:#3a331a;--n1-bd:#b8943a;--n2-bg:#3d2c20;--n2-bd:#c07a45;--n3-bg:#3d2527;--n3-bd:#c46a6a;
-  --shadow:0 10px 40px rgba(0,0,0,.4);color-scheme:dark}}
+
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{margin:0}
@@ -89,20 +84,17 @@ summary{cursor:pointer;font-weight:600;color:var(--ink)}
 
 /* ===== Light pastel animated background + floating objects ===== */
 :root{
-  --g1:#fff1e6;--g2:#e6f6f2;--g3:#ecefff;--g4:#ffeef3;
+  --g1:#ffeede;--g2:#ffe6ef;--g3:#e6f7ec;--g4:#fff6d6;
   --p1:#ffc9d6;--p2:#bfe6f2;--p3:#cdeccd;--p4:#ffe8a3;--p5:#dccfff;
   --card:rgba(255,254,251,.9);
 }
-@media (prefers-color-scheme:dark){:root{
-  --g1:#141c26;--g2:#13232a;--g3:#1a1c2e;--g4:#231b27;
-  --p1:#6b4455;--p2:#3d6272;--p3:#46664c;--p4:#76673a;--p5:#58497e;
-  --card:rgba(24,34,42,.92)}}
+
 body{background:linear-gradient(125deg,var(--g1),var(--g2),var(--g3),var(--g4));background-size:300% 300%;animation:bgshift 30s ease-in-out infinite;overflow-x:hidden}
 .wrap{position:relative;z-index:1}
 .app{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .bg{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
 .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;animation:drift 22s ease-in-out infinite alternate}
-.b1{width:340px;height:340px;background:var(--p2);left:-90px;top:8%}
+.b1{width:340px;height:340px;background:var(--p3);left:-90px;top:8%}
 .b2{width:300px;height:300px;background:var(--p1);right:-70px;top:38%;animation-duration:27s}
 .b3{width:380px;height:380px;background:var(--p4);left:30%;bottom:-160px;animation-duration:31s}
 .fl{position:absolute;bottom:-90px;left:var(--x);width:var(--s);height:var(--s);color:var(--c);opacity:0;
