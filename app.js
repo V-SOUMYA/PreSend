@@ -19,7 +19,7 @@ function setCtx(v) {
   $('tag').hidden = !stranger;
   hideNudge();
 }
-document.querySelectorAll('#ctx button').forEach((b) => (b.onclick = () => setCtx(b.dataset.v)));
+document.querySelectorAll('#ctx button').forEach((b) => (b.onclick = () => { DemoFriend.reset(); setCtx(b.dataset.v); }));
 
 // --- Chat ----------------------------------------------------------------
 function bubble(text, who) {
@@ -30,16 +30,16 @@ function bubble(text, who) {
   chat.scrollTop = chat.scrollHeight;
   return d;
 }
-function friendReply() {
+function friendReply(text) {
   const t = document.createElement('div');
   t.className = 'b them typing';
   t.innerHTML = '<i></i><i></i><i></i>'; // static markup, no user text
   chat.appendChild(t);
   chat.scrollTop = chat.scrollHeight;
-  const replies = ['haha ok', 'oh really? tell me more', 'nice, what else is up?', 'ok cool 🙂', 'lol same'];
-  setTimeout(() => { t.remove(); bubble(replies[Math.floor(Math.random() * replies.length)], 'them'); }, 900);
+  const answer = DemoFriend.reply(text, getCtx()); // scripted demo friend, on-device
+  setTimeout(() => { t.remove(); bubble(answer, 'them'); }, 700 + Math.min(answer.length * 12, 700));
 }
-function deliver(text) { bubble(text, 'me'); friendReply(); }
+function deliver(text) { bubble(text, 'me'); friendReply(text); }
 
 // --- Counters ---------------------------------------------------------------
 function count(key) {
