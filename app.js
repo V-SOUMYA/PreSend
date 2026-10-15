@@ -59,13 +59,18 @@ function showNudge(hit, payload) {
   $('adult').hidden = hit.lvl < 3;
   currentHit = hit;
   $('pausey').innerHTML = pausey(hit.lvl >= 3 ? 'worried' : hit.lvl === 2 ? 'oops' : 'hmm');
+  setMascot(hit.lvl >= 3 ? 'worried' : hit.lvl === 2 ? 'oops' : 'hmm',
+    hit.lvl >= 3 ? 'This one matters. A trusted adult can help.' : hit.lvl === 2 ? 'Uh-oh! Let us check before sending.' : 'Hmm, let us think about this one…');
   renderHelpers(hit, payload);
   nudge.dataset.lvl = String(hit.lvl);
   nudge.hidden = false;
   nudge.scrollIntoView({ block: 'nearest' });
   $('reword').focus();
 }
-function hideNudge() { nudge.hidden = true; $('grownup').hidden = true; pending = null; }
+function hideNudge() {
+  nudge.hidden = true; $('grownup').hidden = true; pending = null;
+  if ($('mascot').dataset.mood !== 'cheer') setMascot('happy', 'Nice thinking! Keep chatting. 😊');
+}
 
 function attemptText() {
   const text = msg.value.trim();
@@ -156,7 +161,7 @@ function pausey(mood) {
   const mouth = { happy: 'M20 33q6 6 12 0', hmm: 'M21 35h10', oops: 'M21 36q5-4 10 0', worried: 'M21 37q5-5 10 0', cheer: 'M19 32q7 9 14 0z' }[mood];
   const brows = mood === 'worried' || mood === 'oops'
     ? '<path d="M13 17l8-3M39 17l-8-3" stroke="#1e2a32" stroke-width="2" stroke-linecap="round"/>' : '';
-  return '<svg viewBox="0 0 52 52" class="pz"><circle cx="26" cy="26" r="20" fill="var(--accent)"/>' +
+  return '<svg viewBox="0 0 52 52" class="pz"><circle cx="26" cy="26" r="20" fill="var(--pz)" stroke="#2d2a4a" stroke-width="2.4"/>' +
     '<g class="eyes"><circle cx="19" cy="24" r="4.2" fill="#fff"/><circle cx="33" cy="24" r="4.2" fill="#fff"/>' +
     '<circle cx="19.8" cy="24.6" r="2.1" fill="#1e2a32"/><circle cx="33.8" cy="24.6" r="2.1" fill="#1e2a32"/></g>' +
     '<circle cx="12.5" cy="31" r="3" fill="#ff9bb0" opacity=".6"/><circle cx="39.5" cy="31" r="3" fill="#ff9bb0" opacity=".6"/>' +
@@ -169,9 +174,12 @@ function renderShelf() {
   BADGES.forEach((b) => {
     const el = document.createElement('span');
     el.className = 'badge' + (earned.has(b.k) ? ' on' : '');
-    el.id = 'bd-' + b.k; el.textContent = b.e; el.title = b.n + ': ' + b.d;
+    el.id = 'bd-' + b.k; el.title = b.n + ': ' + b.d;
     el.setAttribute('role', 'img');
     el.setAttribute('aria-label', b.n + (earned.has(b.k) ? ' (earned)' : ' (locked): ' + b.d));
+    const em = document.createElement('b'); em.textContent = b.e;
+    const nm = document.createElement('small'); nm.textContent = b.n;
+    el.append(em, nm);
     s.appendChild(el);
   });
   $('bcount').textContent = earned.size + '/' + BADGES.length;
@@ -182,6 +190,7 @@ function unlock(k) {
   $('bd-' + k).classList.add('new');
   const b = BADGES.find((x) => x.k === k);
   toast('New badge: ' + b.n + ' ' + b.e);
+  setMascot('cheer', 'You earned "' + b.n + '"! 🎉', true);
   confetti();
 }
 function award(hit) {
@@ -235,3 +244,15 @@ function showGrownup() {
   g.hidden = false;
 }
 renderShelf();
+
+// ===== Mascot panel: Pausey reacts to what is happening and gives tips when tapped =====
+const TIPS = ['Think first, then tap send. 💭', 'Your address and phone number are private.', 'Kind words make everyone feel good. 💛',
+  "Asked to keep a secret from your parents? Tell a grown-up.", "If something feels weird, it's okay to stop and tell someone you trust."];
+let tipI = 0, cheerTimer;
+function setMascot(mood, text, isCheer) {
+  const m = $('mascot'); m.innerHTML = pausey(mood); m.dataset.mood = mood;
+  if (text) $('say').textContent = text;
+  if (isCheer) { clearTimeout(cheerTimer); cheerTimer = setTimeout(() => { if (nudge.hidden) setMascot('happy', 'Nice thinking! Keep chatting. 😊'); }, 3200); }
+}
+$('mascot').onclick = () => setMascot('happy', TIPS[tipI++ % TIPS.length]);
+setMascot('happy', "Hi, I'm Pausey! I help you pause before you send. Tap me for tips.");
